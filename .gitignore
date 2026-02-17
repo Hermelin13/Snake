@@ -1,8 +1,12 @@
 # Ignore everything
 *
-# But not snake.cs
-!snake.cs
-# But not readme.md
-!README.md.md
+# But not directory NewCode
+!NewCode/
+!NewCode/**
+# But not all in directory LegacyCode
+!LegacyCode/
+!LegacyCode/**
+# But not readme files
+!README.md
 # But not .gitignore itself
 !.gitignore
