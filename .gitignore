@@ -1,0 +1,8 @@
+# Ignore everything
+*
+# But not snake.cs
+!snake.cs
+# But not readme.md
+!README.md.md
+# But not .gitignore itself
+!.gitignore
