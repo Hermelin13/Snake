@@ -24,4 +24,25 @@ namespace SnakeGame
         var engine = new GameEngine(GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
         var inputHandler = new InputHandler();
         var direction = Direction.Right;
+        
+        // game loop
+        while (!engine.GetState().IsGameOver)
+        {
+            renderer.Clear();
+            renderer.DrawBorders();
+            renderer.DrawSnake(engine.GetSnake());
+            renderer.DrawFood(engine.GetFood());
+            renderer.DrawScore(engine.GetState().Score);
+
+            direction = inputHandler.GetDirection(direction);
+
+            if (inputHandler.ShouldUpdateGame(GameConfig.GAME_TICK_MS))
+            {
+                engine.Update(direction, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+            }
+
+            System.Threading.Thread.Sleep(10); // CPU friendly delay
+        }
+
+        renderer.DrawGameOver(engine.GetState().Score);
 }

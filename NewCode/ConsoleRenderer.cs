@@ -53,5 +53,44 @@ public class ConsoleRenderer
             Console.Write(GameConfig.BORDER_CHAR);
         }
     }
+    
+    public void DrawSnake(Snake snake)
+    {
+        Console.ForegroundColor = snake.Color;
+
+        // head
+        Console.SetCursorPosition(snake.Head.X, snake.Head.Y);
+        Console.Write(GameConfig.BODY_CHAR);
+
+        // body
+        foreach (var segment in snake.Body)
+        {
+            Console.SetCursorPosition(segment.X, segment.Y);
+            Console.Write(GameConfig.BODY_CHAR);
+        }
+    }
+
+    public void DrawFood(Food food)
+    {
+        Console.ForegroundColor = food.Color;
+        Console.SetCursorPosition(food.Position.X, food.Position.Y);
+        Console.Write(GameConfig.FOOD_CHAR);
+    }
+
+    public void DrawScore(int score)
+    {
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(0, screenHeight - 1);
+        Console.Write($"Score: {score}");
+    }
+
+    public void DrawGameOver(int score)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.SetCursorPosition(screenWidth / 5, screenHeight / 2);
+        Console.WriteLine($"Game Over! Score: {score}");
+        Console.SetCursorPosition(screenWidth / 5, screenHeight / 2 + 1);
+        Console.ReadKey();
+    }
 
 }
