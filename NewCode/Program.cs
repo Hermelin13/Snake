@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Snake;
 
 namespace SnakeGame
 {
@@ -14,35 +15,39 @@ namespace SnakeGame
         public const char BODY_CHAR = '■';
         public const char FOOD_CHAR = '■';
     }
-    
-    static void Main(string[] args)
+
+    class Program
     {
-        // Inicialization
-        var renderer = new ConsoleRenderer(GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
-        renderer.Setup();
-
-        var engine = new GameEngine(GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
-        var inputHandler = new InputHandler();
-        var direction = Direction.Right;
-        
-        // game loop
-        while (!engine.GetState().IsGameOver)
+        static void Main(string[] args)
         {
-            renderer.Clear();
-            renderer.DrawBorders();
-            renderer.DrawSnake(engine.GetSnake());
-            renderer.DrawFood(engine.GetFood());
-            renderer.DrawScore(engine.GetState().Score);
+            // Initialization
+            var renderer = new ConsoleRenderer(GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+            renderer.Setup();
 
-            direction = inputHandler.GetDirection(direction);
+            var engine = new GameEngine(GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+            var inputHandler = new InputHandler();
+            var direction = Direction.Right;
 
-            if (inputHandler.ShouldUpdateGame(GameConfig.GAME_TICK_MS))
+            // Game loop
+            while (!engine.GetState().IsGameOver)
             {
-                engine.Update(direction, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+                renderer.Clear();
+                renderer.DrawBorders();
+                renderer.DrawSnake(engine.GetSnake());
+                renderer.DrawFood(engine.GetFood());
+                renderer.DrawScore(engine.GetState().Score);
+
+                direction = inputHandler.GetDirection(direction);
+
+                if (inputHandler.ShouldUpdateGame(GameConfig.GAME_TICK_MS))
+                {
+                    engine.Update(direction, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+                }
+
+                System.Threading.Thread.Sleep(10); // CPU friendly delay
             }
 
-            System.Threading.Thread.Sleep(10); // CPU friendly delay
+            renderer.DrawGameOver(engine.GetState().Score);
         }
-
-        renderer.DrawGameOver(engine.GetState().Score);
+    }
 }

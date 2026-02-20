@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Snake;
 
-class Snake
+public class Snake
 {
     public Position Head { get; set; }
     public List<Position> Body { get; private set; }

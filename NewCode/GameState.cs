@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Snake;
 
-class GameState
+public class GameState
 {
     public int Score { get; set; }
     public bool IsGameOver { get; set; }
