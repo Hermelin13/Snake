@@ -14,4 +14,14 @@ namespace SnakeGame
         public const char BODY_CHAR = '■';
         public const char FOOD_CHAR = '■';
     }
+    
+    static void Main(string[] args)
+    {
+        // Inicialization
+        var renderer = new ConsoleRenderer(GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+        renderer.Setup();
+
+        var engine = new GameEngine(GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
+        var inputHandler = new InputHandler();
+        var direction = Direction.Right;
 }
