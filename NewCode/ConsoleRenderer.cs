@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using SnakeGame;
 
 namespace Snake;
 
@@ -82,7 +81,7 @@ public class ConsoleRenderer
     {
         Console.ForegroundColor = ConsoleColor.White;
         Console.SetCursorPosition(0, screenHeight - 1);
-        Console.Write($"Score: {score}");
+        Console.Write($"Score: {score} ");
     }
 
     public void DrawGameOver(int score)

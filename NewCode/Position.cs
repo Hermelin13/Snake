@@ -17,7 +17,8 @@ public class Position
     }
 
     // for comparing positions in lists
-    public override bool Equals(object obj)
+	public override bool Equals(object obj)
+    //public override bool Equals(object? obj)
     {
         if (obj is Position pos)
             return X == pos.X && Y == pos.Y;

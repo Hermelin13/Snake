@@ -1,19 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Snake;
 
 namespace Snake;
 
 public class InputHandler
 {
-    private DateTime lastInputTime;
-    private const int InputDelayMs = 50;
+    private DateTime lastUpdateTime;
 
     public InputHandler()
     { 
-        lastInputTime = DateTime.Now;
+        lastUpdateTime = DateTime.Now;
     }
 
     public Direction GetDirection(Direction currentDirection)
@@ -28,7 +23,6 @@ public class InputHandler
             if (CanChangeDirection(key.Key, currentDirection))
             {
                 newDirection = ConvertKeyToDirection(key.Key);
-                lastInputTime = DateTime.Now;
             }
         }
 
@@ -57,6 +51,13 @@ public class InputHandler
 
     public bool ShouldUpdateGame(int gameTickMs)
     { 
-        return DateTime.Now.Subtract(lastInputTime).TotalMilliseconds >= gameTickMs;
+        var now = DateTime.Now;
+        if (now.Subtract(lastUpdateTime).TotalMilliseconds >= gameTickMs)
+        {
+            lastUpdateTime = now;
+            return true;
+        }
+
+        return false;
     }
 }

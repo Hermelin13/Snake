@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Snake;
 
-namespace SnakeGame
+namespace Snake
 {
     static class GameConfig
     {
@@ -31,11 +30,12 @@ namespace SnakeGame
             // Game loop
             while (!engine.GetState().IsGameOver)
             {
-                renderer.Clear();
+                
+				renderer.Clear();
                 renderer.DrawBorders();
                 renderer.DrawSnake(engine.GetSnake());
                 renderer.DrawFood(engine.GetFood());
-                renderer.DrawScore(engine.GetState().Score);
+                //renderer.DrawScore(engine.GetState().Score);
 
                 direction = inputHandler.GetDirection(direction);
 
@@ -43,8 +43,7 @@ namespace SnakeGame
                 {
                     engine.Update(direction, GameConfig.WINDOW_WIDTH, GameConfig.WINDOW_HEIGHT);
                 }
-
-                System.Threading.Thread.Sleep(10); // CPU friendly delay
+                Thread.Sleep(20);
             }
 
             renderer.DrawGameOver(engine.GetState().Score);
